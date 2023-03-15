@@ -5,36 +5,24 @@ import Post from './Post';
 import NewPost from './NewPost';
 import classes from './PostsList.module.css';
 
-function PostsList() {
-	const [modaIsVisible, setModaIsVisible] = useState(true);
-	const [enteredBody, setEnteredBody] = useState('');
-	const [enteredAuthor, setEnteredAuthor] = useState('');
+function PostsList({ isPosting, onStopPosting }) {
+	const [posts, setPosts] = useState([]);
 
-	function hideModalHnadler() {
-		setModaIsVisible(false);
-	}
-
-	function BodyChangeHandler(event) {
-		setEnteredBody(event.target.value);
-	}
-
-	function AuthorChangeHandler(event) {
-		setEnteredAuthor(event.target.value);
+	function addPostHandler(postData) {
+		setPosts((existingPosts) => [postData, ...existingPosts]);
 	}
 
 	return (
 		<>
-			{modaIsVisible && (
-				<Modal onClose={hideModalHnadler}>
-					<NewPost
-						onBodyChange={BodyChangeHandler}
-						onAuthorChange={AuthorChangeHandler}
-					/>
+			{isPosting && (
+				<Modal onClose={onStopPosting}>
+					<NewPost onCancel={onStopPosting} onAddPost={addPostHandler} />
 				</Modal>
 			)}
 			<ul className={classes.posts}>
-				<Post author={enteredAuthor} body={enteredBody} />
-				<Post author="Obaida" body="Hellooo!" />
+				{posts.map((post) => (
+					<Post author={post.author} body={post.body} />
+				))}
 			</ul>
 		</>
 	);
