@@ -21,7 +21,7 @@ function NewPost({ onCancel, onAddPost }) {
 			author: enteredAuthor,
 		};
 		onAddPost(postData);
-		oncancel();
+		onCancel();
 	}
 
 	return (
