@@ -43,10 +43,13 @@
 	background-color: #23014a;
 }
 
-.actions button[type='button'] {
+.actions a {
 	background-color: transparent;
+	color: white;
+	text-decoration: none;
+	margin: auto 0;
 }
 
-.actions button[type='button']:hover {
+.actions a:hover {
 	color: #d1bee6;
 }
